@@ -1,0 +1,29 @@
+{% from "form_helper.html" import displayField %}
+
+{% extends "base.html" %}
+
+
+{% block title%} Login {% endblock%}
+
+{% block content%}
+<nav class="nav nav-pills justify-content-center">
+    <a class="flex-sm-fill text-sm-center nav-link" href="/">Register</a>
+    <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/login">Login</a>
+</nav>
+<h2> Login now! </h2>
+<p>Enter your username/password to start FastestChat</p>
+
+<form action="{{ url_for('login')}}" , method="POST">
+
+    {{ displayField(form.username, "Username", autocomplete="off", autofocus=true) }}
+    {{ displayField(form.password, "Password", ) }}
+
+    <div>
+        {{ form.submit_button}}
+    </div>
+    {{form.csrf_token}}
+</form>
+
+<p>If you are not already register, <a href="/">click here!</a> </p>
+
+{%endblock%}

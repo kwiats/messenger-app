@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+
+{% block title%} Find Friend {% endblock%}
+
+{% block content%}
+<nav class="nav nav-pills justify-content-center">
+    <a class="flex-sm-fill text-sm-center nav-link" href="/profile">Profile</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/chat">Chat</a>
+    <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/find_friend">Find friends</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/logout">Logout</a>
+</nav>
+<form method="GET">
+    <input id="friend_name" type="text" name="friend_name" placeholder="Type your friend name..">
+    <button type="submit">Find</button>
+    <ul>
+        <input type="checkbox">
+        {{context['friend']}}
+        <input type="checkbox">
+        {{context['friend']}}
+        <input type="checkbox">
+        {{context['friend']}}
+        <input type="checkbox">
+        {{context['friend']}}
+
+        <button type="button">Add friend</button>
+    </ul>
+</form>
+
+
+{%endblock%}

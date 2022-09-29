@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title%}
+{% if amount_messages %}
+({{amount_messages}}) new messages
+{% else %}
+Chat
+{% endif %}
+{%endblock%}
+
+{% block content%}
+<!-- Navigation bar-->
+<nav class="nav nav-pills justify-content-center">
+    <a class="flex-sm-fill text-sm-center nav-link" href="/profile">Profile</a>
+    <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/chat">Chat</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/find_friend">Find friends</a>
+    <a class="flex-sm-fill text-sm-center nav-link" href="/logout">Logout</a>
+</nav>
+<div class="container text-center">
+    <div class="row justify-content-center">
+        <div class=".col-6 .col-md-4">
+            <nav id="rightside-pannel">
+                <div class="card">
+                    <!-- list of friend bar-->
+                    <div class="card-body">
+                        <h5 class="card-title">Friends</h5>
+                        <a href="/find_friend" class="btn btn-primary">Find friends</a>
+                        <p class="card-text">
+                        <p>List of your friend!</p>
+                        <ol>
+                            {% for room in rooms %}
+                            <li>
+                                <button class="btn btn-primary">
+                                    <a class="select-room"> {{room | title}}
+
+                                    </a>
+
+                                </button>
+                                <a class='user-connection'><h10>Connected</h10></a>
+                            </li>
+                            {%endfor%}
+                        </ol>
+                        <p>You can send voice message.</p>
+                        </p>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class=".col-6 .col-md-4">
+            <nav id="rightside-pannel">
+                <div class="card">
+                    <!--Chat bar-->
+                    <div class="card-body">
+                        <h5 class="card-title">TurtleChat - ({{amount_messages}}) new messages</h5>
+                        <p class="card-text">
+                        <div id="display-message-section">
+                            <!-- messages here -->
+                        </div>
+                        <div id="input-area">
+                            <!-- input here -->
+                            <input type="text" id="user_message" placeholder="Type here... " autocomplete="off">
+                            <button type="button" id="send_message">SEND</button>
+                        </div>
+                        </p>
+                        <!-- future chat voice-->
+                        <a href="#" class="btn btn-primary">Voice Message(future)</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Get username-->
+<script type="text/javascript">
+    const username = `{{user_object.username }}`;
+</script>
+<!-- SocketIO js-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+    integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+    crossorigin="anonymous"></script>
+
+<!-- Custo SocketIO JS-->
+<script src="{{ url_for('static', filename='scripts/socketio.js')}}"></script>
+
+{%endblock%}
