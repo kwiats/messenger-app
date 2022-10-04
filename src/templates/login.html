@@ -5,25 +5,32 @@
 
 {% block title%} Login {% endblock%}
 
-{% block content%}
+{%block bar%}
 <nav class="nav nav-pills justify-content-center">
     <a class="flex-sm-fill text-sm-center nav-link" href="/">Register</a>
     <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/login">Login</a>
 </nav>
-<h2> Login now! </h2>
-<p>Enter your username/password to start FastestChat</p>
+{%endblock%}
+{% block content%}
 
-<form action="{{ url_for('login')}}" , method="POST">
+<div class="row">
+    <div class="columns">
+        <h2> Login now! </h2>
+        <p>Enter your username/password to start FastestChat</p>
 
-    {{ displayField(form.username, "Username", autocomplete="off", autofocus=true) }}
-    {{ displayField(form.password, "Password", ) }}
+        <form action="{{ url_for('login')}}" , method="POST">
 
-    <div>
-        {{ form.submit_button}}
+            {{ displayField(form.username, "firstname", autocomplete="off", autofocus=true) }}
+            {{ displayField(form.password, "Password", ) }}
+
+            <div class="button-submit">
+                {{ form.submit_button}}
+            </div>
+            {{form.csrf_token}}
+        </form>
+
+        <p>If you are not already register, <a href="/">click here!</a> </p>
     </div>
-    {{form.csrf_token}}
-</form>
 
-<p>If you are not already register, <a href="/">click here!</a> </p>
-
+</div>
 {%endblock%}

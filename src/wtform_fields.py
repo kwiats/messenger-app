@@ -22,14 +22,14 @@ def invalid_credentials(form, field):
 class FindFriendForm(FlaskForm):
     """Find friends form"""
 
-    friend_username = StringField(
-        "friend_username_label",
+    friend_name = StringField(
+        "friend_name_label",
         validators=[
-            InputRequired(message="Friend username required"),
+            InputRequired(message="Friend name required"),
             Length(
                 min=4,
                 max=25,
-                message="Friend username must be between 4 and 25 characters",
+                message="Friend name must be between 4 and 52 characters",
             ),
         ],
     )
@@ -39,12 +39,21 @@ class FindFriendForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     """Registration form"""
 
-    username = StringField(
-        "username_label",
+    firstname = StringField(
+        "first_label",
         validators=[
-            InputRequired(message="Username required"),
+            InputRequired(message="First name required"),
             Length(
-                min=4, max=25, message="Username must be between 4 and 25 characters"
+                min=4, max=25, message="First name must be between 4 and 25 characters"
+            ),
+        ],
+    )
+    lastname = StringField(
+        "last_label",
+        validators=[
+            InputRequired(message="Last name required"),
+            Length(
+                min=4, max=25, message="Last name must be between 4 and 25 characters"
             ),
         ],
     )

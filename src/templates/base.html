@@ -2,13 +2,15 @@
 <html lange="en" dir="ltr">
 
 <head>
+    {%block head%}{%endblock%}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS     -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
     <title>
         {% block title %}{% endblock%} - FastestChat
     </title>
@@ -20,7 +22,7 @@
 <body>
 
 
-    <div class="container">
+    <div class="flash">
         <!-- Flash messages-->
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -32,10 +34,19 @@
         </ul>
         {% endif %}
         {% endwith %}
+
+    </div>
+    <div class="nav-bar-panel">
+        {% block bar %}
+
+        {% endblock %}
+    </div>
+    <div class="content">
         {% block content %}
 
         {% endblock %}
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>

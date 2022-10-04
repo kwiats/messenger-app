@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{%block head%}
+
+{%endblock%}
 
 {% block title%}
 {% if amount_messages %}
@@ -7,6 +10,8 @@
 Chat
 {% endif %}
 {%endblock%}
+
+
 
 {% block content%}
 <!-- Navigation bar-->
@@ -36,7 +41,9 @@ Chat
                                     </a>
 
                                 </button>
-                                <a class='user-connection'><h10>Connected</h10></a>
+                                <a class='user-connection'>
+                                    <h10>Connected</h10>
+                                </a>
                             </li>
                             {%endfor%}
                         </ol>
@@ -80,7 +87,10 @@ Chat
     integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
     crossorigin="anonymous"></script>
 
-<!-- Custo SocketIO JS-->
+<!-- Custom SocketIO JS-->
 <script src="{{ url_for('static', filename='scripts/socketio.js')}}"></script>
+<!-- Custom chat JS-->
+<script src="{{ url_for('static', filename='scripts/chat_page.js')}}"></script>
+
 
 {%endblock%}

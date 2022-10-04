@@ -14,7 +14,8 @@
 
 <form action="{{ url_for('register')}}" method="POST" enctype="multipart/form-data">
 
-    {{ displayField(form.username, "Username...", autocomplete="off", autofocus=true) }}
+    {{ displayField(form.firstname, "First name...", autocomplete="off", autofocus=true) }}
+    {{ displayField(form.lastname, "Last name...", ) }}
     {{ displayField(form.password, "Password...", ) }}
     {{ displayField(form.confirm_password, "Retype Passowrd...",) }}
     {{ displayField(form.email, "E-mail...",) }}
