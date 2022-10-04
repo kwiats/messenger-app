@@ -27,9 +27,9 @@ Rozszerzone:
 
 ![](https://media.giphy.com/media/Wk7BlQrV8xe107wU92/giphy.gif)
 
+### New views..
 
-### New views.. 
+![register panel to implement](https://github.com/kwiats/turtle-chat/blob/main/images/register-img.png?raw=true)
+![login panel to implement](https://github.com/kwiats/turtle-chat/blob/main/images/login-img.png?raw=true)
 
-![register panel to implement](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
-![login panel to implement](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
 ### Enjoy!
