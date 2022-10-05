@@ -43,7 +43,7 @@ bootstrap = Bootstrap(app)
 # config db
 app.config["SECRET_KEY"] = secret_key
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = database_connection
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://ykrewconjnhwqv:8142addde131d7fdfc06797345a86e2fd7be5c3e38fdb2063cb5248fc2e99491@ec2-52-18-116-67.eu-west-1.compute.amazonaws.com:5432/d5q3gcdmi3left"
 app.config["MAX_CONTENT_LENGTH"] = 4 * 1024 * 1024  # 4MB max-limit.
 app.config["UPLOAD_EXTENSIONS"] = [".jpg", ".png", ".gif"]
 app.config["UPLOAD_PATH"] = UPLOAD_FOLDER
