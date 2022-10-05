@@ -216,7 +216,7 @@ def on_message(data):
 def join(data):
     join_room(data["room"])
     send(
-        {"msg": data["room"]},
+        {"msg": data["firstname"] + " is active."},
         room=data["room"],
     )
 

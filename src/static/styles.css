@@ -210,7 +210,8 @@ form .name-details .field:last-child {
 }
 
 .users-list {
-  max-height: 350px;
+  min-height: 38vh;
+  max-height: 38vh;
   overflow-y: auto;
 }
 
@@ -244,10 +245,10 @@ form .name-details .field:last-child {
   color: #468669;
 }
 
-/* we will use this class name to show offline status 
+/* we will use this class name to show offline status */
 .users-list a .status-dot.offline {
     color: #ccc;
-}*/
+}
 
 /* 
 Chat
@@ -261,8 +262,20 @@ Chat
   display: flex;
   align-items: center;
   padding-bottom: 20px;
+  padding-left: 25%;
   justify-content: space-between;
   border-bottom: 1px solid #e6e6e6;
+}
+
+.chat .details {
+  color: #000;
+  margin-left: 15px;
+}
+
+.chat .details span {
+  font-size: 25px;
+  font-weight: 550;
+
 }
 
 #display-message-section {
