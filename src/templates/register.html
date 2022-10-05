@@ -1,67 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Turtle Chat App</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-    />
-  </head>
 
-  <body>
-    <div class="wrapper">
-      <section class="form signup">
-        <header>Turtle Chat App</header>
-        <form
-          action="{{ url_for('register')}}"
-          method="POST"
-          enctype="multipart/form-data"
-        >
-          <ul>
-            {% for error in form.errors %} {% if error:%}
-            <div class="error-txt">{{ error }}</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+  <title>Register - Turtle Chat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
 
-            {%endif%}{% endfor %}
-          </ul>
-          <div class="name-details">
-            <div class="field input">
-              <label>First Name</label>
-              {{ form.firstname(class_='input') }}
-            </div>
-            <div class="field input">
-              <label>Last Name</label>
-              {{ form.lastname(class_='input') }}
-            </div>
+<body>
+  <div class="flash">
+    <!-- Flash messages-->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+  </div>
+
+  <div class="wrapper">
+    <section class="form signup">
+      <header>Turtle Chat App</header>
+      <form action="{{ url_for('register')}}" method="POST" enctype="multipart/form-data">
+        <ul>
+          {% for error in form.errors %} {% if error:%}
+          <div class="error-txt">{{ error }}</div>
+
+          {%endif%}{% endfor %}
+        </ul>
+        <div class="name-details">
+          <div class="field input">
+            <label>First Name</label>
+            {{ form.firstname(class_='input') }}
           </div>
           <div class="field input">
-            <label>E-mail Address</label>
-            {{ form.email(class_='input') }}
+            <label>Last Name</label>
+            {{ form.lastname(class_='input') }}
           </div>
-          <div class="field input">
-            <label>Password</label>
-            {{ form.password(class_='input') }}
-            <i class="fas fa-eye"></i>
-          </div>
-          <div class="field image">
-            <label>Select Image</label>
-            {{ form.picture_name(class_='input') }}
-          </div>
-          <div class="field button">
-            {{ form.submit_button(class_='input', type='submit')}}
-          </div>
-          {{form.csrf_token}}
-        </form>
-        <div class="link">
-          Already signed up? <a href="/login">Login now!</a>
         </div>
-      </section>
-    </div>
-  </body>
+        <div class="field input">
+          <label>E-mail Address</label>
+          {{ form.email(class_='input') }}
+        </div>
+        <div class="field input">
+          <label>Password</label>
+          {{ form.password(class_='input') }}
+          <i class="fas fa-eye"></i>
+        </div>
+        <div class="field image">
+          <label>Select Image</label>
+          {{ form.picture_name(class_='input') }}
+        </div>
+        <div class="field button">
+          {{ form.submit_button(class_='input', type='submit')}}
+        </div>
+        {{form.csrf_token}}
+      </form>
+      <div class="link">
+        Already signed up? <a href="/login">Login now!</a>
+      </div>
+    </section>
+  </div>
+</body>
+
 </html>

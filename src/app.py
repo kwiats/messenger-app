@@ -149,6 +149,7 @@ def chat():
         user_object=current_user,
         amount_messages=randint(1, 10),
         rooms=ROOMS,
+        users=lst_username,
     )
 
 

@@ -18,7 +18,7 @@ body {
 
 .wrapper {
   background: #fff;
-  width: 450px;
+  width: 456px;
   border-radius: 16px;
   box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
     0 32px 64px -48px rgba(0, 0, 0, 0.5);
@@ -270,7 +270,12 @@ Chat
   min-height: 38vh;
   max-height: 38vh;
   overflow-y: auto;
+
   /*Make  this section scrolable */
+}
+
+#display-message-section::-webkit-scrollbar {
+  width: 0px;
 }
 
 input[type=text]:focus {
@@ -296,10 +301,10 @@ input[type=text]:focus {
   border-color: rgb(255, 255, 255);
   border-width: 0.5px;
   border-style: solid;
-  background-color: rgba(51, 51, 51, 0.137);
+  background-color: rgba(41, 41, 41, 0.137);
   /* animation */
   animation-name: fadeIn;
-  animation-duration: 0.75s;
+  animation-duration: 0.25s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-in-out;
 }
@@ -309,12 +314,13 @@ input[type=text]:focus {
   margin-right: 1em;
   padding: 0.5em 0.5em 0.5em 1em;
   border-radius: 5px;
-  border-color: rgb(0, 0, 0);
+  border-color: rgb(255, 255, 255);
   border-width: 1px;
   border-style: solid;
+  background-color: rgba(124, 181, 255, 0.137);
   /* animation */
   animation-name: fadeIn;
-  animation-duration: 0.75s;
+  animation-duration: 0.25s;
   animation-fill-mode: forwards;
   animation-timing-function: ease-in-out;
 }
@@ -323,25 +329,25 @@ input[type=text]:focus {
   margin-right: 7em;
   margin-left: 1em;
   padding: 0.5em 0.5em 0.5em 1em;
-  color: #ffffff;
+  color: #000000;
   font-size: 0.9em;
 }
 
 .timestamp {
-  color: #ffffff;
-  font-size: 0.7em;
+  color: #000000;
+  font-size: 0.3em;
 }
 
 .other-firstname {
   font-weight: bold;
-  font-size: 1.1em;
-  color: #333;
+  font-size: 1em;
+  color: rgb(0, 0, 0);
 }
 
 .my-firstname {
   font-weight: bold;
-  font-size: 1.1em;
-  color: #FF6B13;
+  font-size: 1em;
+  color: #000000;
 }
 
 #msg-input {

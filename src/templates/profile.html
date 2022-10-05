@@ -12,6 +12,21 @@
 </head>
 
 <body>
+  <div class="flash">
+    <!-- Flash messages-->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+  </div>
+
   <div class="nav-bar">
     <a href="/chat">Chat</a>
     <a href="/logout">logout</a>
@@ -37,10 +52,10 @@
         <b>Null</b>
         <p>Bio: </p>
         <b>191cm, lubie programowac w pythonie</b>
-  
+
       </div>
     </div>
-    
+
   </div>
 
 

@@ -7,10 +7,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
-  <title>Document</title>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+  <title>Chat - Turtle Chat</title>
 </head>
 
 <body>
+
+  <div class="flash">
+    <!-- Flash messages-->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for category, message in messages %}
+      <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+  </div>
+
   <div class="wrapper">
     <section class="users">
       <header>
@@ -38,12 +56,12 @@
         <button><i class="fas fa-search"></i></button>
       </div>
       <div class="users-list">
-        {% for room in rooms %}
+        {% for user in users %}
         <a href="#">
           <div class="content">
-            <img src="{{ url_for('static', filename='0_default.png') }}" alt="" />
+            <img src="{{ url_for('static', filename='images/' + user[5])}}" alt="" />
             <div class="details">
-              <span class="select-room">{{room | title}}</span>
+              <span class="select-room">{{user[1] + " " + user[2]}}</span>
               <p>This is test message</p>
             </div>
           </div>
