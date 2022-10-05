@@ -9,7 +9,7 @@ You should make clone of repository on your local machine. You can use this comm
 
 ### Live demo version
 
-![Link to demo](https://turtlechat-app.herokuapp.com/)
+[Link to demo](https://turtlechat-app.herokuapp.com/)
 
 ```
 email: test@test.com
