@@ -6,6 +6,15 @@ You should make clone of repository on your local machine. You can use this comm
 
     $git clone https://github.com/kwiats/turtlechat turtlechat
 
+
+### Live demo version
+
+![Link to demo](https://turtlechat-app.herokuapp.com/)
+
+```
+email: test@test.com
+password: test
+```
 ### To-Do
 
 Podstawowe:
