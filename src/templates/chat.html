@@ -1,96 +1,101 @@
-{% extends "base.html" %}
-{%block head%}
+<!DOCTYPE html>
+<html lang="en">
 
-{%endblock%}
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <title>Document</title>
+</head>
 
-{% block title%}
-{% if amount_messages %}
-({{amount_messages}}) new messages
-{% else %}
-Chat
-{% endif %}
-{%endblock%}
-
-
-
-{% block content%}
-<!-- Navigation bar-->
-<nav class="nav nav-pills justify-content-center">
-    <a class="flex-sm-fill text-sm-center nav-link" href="/profile">Profile</a>
-    <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/chat">Chat</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="/find_friend">Find friends</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="/logout">Logout</a>
-</nav>
-<div class="container text-center">
-    <div class="row justify-content-center">
-        <div class=".col-6 .col-md-4">
-            <nav id="rightside-pannel">
-                <div class="card">
-                    <!-- list of friend bar-->
-                    <div class="card-body">
-                        <h5 class="card-title">Friends</h5>
-                        <a href="/find_friend" class="btn btn-primary">Find friends</a>
-                        <p class="card-text">
-                        <p>List of your friend!</p>
-                        <ol>
-                            {% for room in rooms %}
-                            <li>
-                                <button class="btn btn-primary">
-                                    <a class="select-room"> {{room | title}}
-
-                                    </a>
-
-                                </button>
-                                <a class='user-connection'>
-                                    <h10>Connected</h10>
-                                </a>
-                            </li>
-                            {%endfor%}
-                        </ol>
-                        <p>You can send voice message.</p>
-                        </p>
-                    </div>
-                </div>
-            </nav>
+<body>
+  <div class="wrapper">
+    <section class="users">
+      <header>
+        <div class="content">
+          {% if user_object.picture_name %}
+          <img src="{{ url_for('static', filename='images/' + user_object.picture_name)}}"
+            alt="{{user_object.picture_name}}" style="width: 25%" />
+          {% else %}
+          <img src="{{ url_for('static', filename='0_default.png')}}" alt="{{user_object.picture_name}}"
+            style="width: 25%" />
+          {%endif%}
+          <div class="details">
+            <a href="/profile">
+              <span>
+                {{ user_object.firstname +" "+ user_object.lastname}}</span>
+            </a>
+            <p>Active Now</p>
+          </div>
         </div>
-        <div class=".col-6 .col-md-4">
-            <nav id="rightside-pannel">
-                <div class="card">
-                    <!--Chat bar-->
-                    <div class="card-body">
-                        <h5 class="card-title">TurtleChat - ({{amount_messages}}) new messages</h5>
-                        <p class="card-text">
-                        <div id="display-message-section">
-                            <!-- messages here -->
-                        </div>
-                        <div id="input-area">
-                            <!-- input here -->
-                            <input type="text" id="user_message" placeholder="Type here... " autocomplete="off">
-                            <button type="button" id="send_message">SEND</button>
-                        </div>
-                        </p>
-                        <!-- future chat voice-->
-                        <a href="#" class="btn btn-primary">Voice Message(future)</a>
-                    </div>
-                </div>
-            </nav>
+        <a href="/logout" class="logout">Logout</a>
+      </header>
+      <div class="search">
+        <span class="text">Select an user to start chat</span>
+        <input type="text" placeholder="Enter name to search.." />
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="users-list">
+        {% for room in rooms %}
+        <a href="#">
+          <div class="content">
+            <img src="{{ url_for('static', filename='0_default.png') }}" alt="" />
+            <div class="details">
+              <span class="select-room">{{room | title}}</span>
+              <p>This is test message</p>
+            </div>
+          </div>
+          <div class="status-dot"><i class="fas fa-circle"></i></div>
+        </a>
+        {%endfor%}
+      </div>
+    </section>
+  </div>
+
+  <div class="wrapper">
+    <section class="chat">
+      <!--Chat bar-->
+      <header>
+        <div id="display-room">
+
         </div>
-    </div>
-</div>
+      </header>
+      <div id="display-message-section">
+        <!-- messages here -->
+      </div>
 
-<!-- Get username-->
-<script type="text/javascript">
-    const username = `{{user_object.username }}`;
-</script>
-<!-- SocketIO js-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
-    integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
-    crossorigin="anonymous"></script>
+      <div id="input-area">
+        <!-- input here -->
+        <div class="send">
+          <span class="text">Type your message..</span>
+          <input type="text" id="user_message" placeholder="Enter message to send.." autocomplete="off" />
+          <button id="send_message"><i class="fas fa-comments"></i></button>
+        </div>
+      </div>
+      <!-- future chat voice-->
+      <div class="future-voice">
+        <button><i class="fa fa-microphone"></i></button>
+        <button><i class="fa fa-file-image"></i></button>
+        <button><i class="fa fa-file"></i></button>
 
-<!-- Custom SocketIO JS-->
-<script src="{{ url_for('static', filename='scripts/socketio.js')}}"></script>
-<!-- Custom chat JS-->
-<script src="{{ url_for('static', filename='scripts/chat_page.js')}}"></script>
+      </div>
 
+      <!-- Get firstname-->
 
-{%endblock%}
+      <span id="get-firstname">{{ user_object.firstname }}</span>
+      <!-- SocketIO js-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+        integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+        crossorigin="anonymous"></script>
+
+      <!-- Custom SocketIO JS-->
+      <script src="{{ url_for('static', filename='scripts/socketio.js')}}"></script>
+      <!-- Custom chat JS-->
+      <script src="{{ url_for('static', filename='scripts/chat_page.js')}}"></script>
+    </section>
+  </div>
+</body>
+
+</html>

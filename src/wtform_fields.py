@@ -10,13 +10,13 @@ from model.models import User
 
 def invalid_credentials(form, field):
     """Username and password checker"""
-    username_entered = form.username.data
+    email_entered = form.email.data
     password_entered = field.data
-    user_object = User.query.filter_by(username=username_entered).first()
+    user_object = User.query.filter_by(email=email_entered).first()
     if user_object is None:
-        raise ValidationError("Username or password is incorrect")
+        raise ValidationError("Email or password is incorrect")
     elif not pbkdf2_sha256.verify(password_entered, user_object.password):
-        raise ValidationError("Username or password is incorrect")
+        raise ValidationError("Email or password is incorrect")
 
 
 class FindFriendForm(FlaskForm):
@@ -66,13 +66,6 @@ class RegistrationForm(FlaskForm):
             ),
         ],
     )
-    confirm_password = PasswordField(
-        "confirm_password_label",
-        validators=[
-            InputRequired(message="Passowrd required"),
-            EqualTo("password", message="Passwords must match"),
-        ],
-    )
     email = StringField(
         "email_label",
         validators=[
@@ -80,18 +73,12 @@ class RegistrationForm(FlaskForm):
             Length(min=5, message="E-mail must be minimum 5 characters"),
         ],
     )
-    profile_picture = FileField(
+    picture_name = FileField(
         "profile_picture_label",
         validators=[FileAllowed(["jpg", "png"], "Images with type 'jpg' or 'png'.")],
     )
-    submit_button = SubmitField("Create")
+    submit_button = SubmitField("Continue to login and chat!")
 
-    def validate_username(self, username):
-        user_object = User.query.filter_by(username=username.data).first()
-        if user_object:
-            raise ValidationError(
-                "Username already exists. Select a different username."
-            )
 
     def validate_email(self, email):
         user_object = User.query.filter_by(email=email.data).first()
@@ -102,12 +89,15 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
     """Login form"""
 
-    username = StringField(
-        "username_label",
-        validators=[InputRequired(message="Username requaired.")],
+    email = StringField(
+        "email_label",
+        validators=[
+            InputRequired(message="E-mail required"),
+        ],
     )
     password = PasswordField(
         "password_label",
         validators=[InputRequired(message="Password  requaired"), invalid_credentials],
     )
+
     submit_button = SubmitField("Login")

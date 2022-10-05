@@ -1,47 +1,49 @@
-{% extends 'base.html'%}
-{% block title%}
-profile
-{% endblock%}
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
+<title>Profile - Turtle Chat</title>
+</head>
 
+<body>
+  <div class="nav-bar">
+    <a href="/chat">Chat</a>
+    <a href="/logout">logout</a>
+  </div>
 
-
-{% block content%}
-<nav class="nav nav-pills justify-content-center">
-    <a class="flex-sm-fill text-sm-center nav-link" href="/chat">Chat</a>
-    <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/profile">Profile</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="/find_friend">Find friends</a>
-    <a class="flex-sm-fill text-sm-center nav-link" href="/logout">Logout</a>
-</nav>
-<div class="container text-center">
-    <div class="row justify-content-center">
-        <div class=".col-6 .col-md-4">
-            <nav id="rightside-pannel">
-                <div class="card">
-
-                    <div class="card-body">
-                        <h2> hi, <b>{{ user_object.username }}!</b> </h2>
-                        <p>Pofile photo: <b>You look amazing! </b></p>
-                        <img src="{{ url_for('static', filename='0_default.png') }}" alt="Default profile picture"
-                            style="width:25%">
-                    </div>
-                </div>
-            </nav>
-        </div>
-        <div class=".col-6 .col-md-4">
-            <nav id="rightside-pannel">
-                <div class="card">
-
-                    <div class="card-body">
-                        <p>Username: <b>{{ user_object.username}}</b> </p>
-                        <p>E-mail: <b>{{ user_object.email}}</b> </p>
-                        <p>Friends: <b>997</b></p>
-                        <p>Bio: <b>191cm, lubie programowac w pythonie</b></p>
-                        <h5>Have you good day, bye..</h5>
-                    </div>
-                </div>
-            </nav>
-        </div>
+  <div class="profile-title">
+    <h2>hi, <b>{{ user_object.firstname }}!</b></h2>
+    {% if user_object.picture_name %}
+    <img src="{{ url_for('static', filename='images/' + user_object.picture_name)}}" alt="{{user_object.picture_name}}"
+      width="15%" />
+    {% else %}
+    <img src="{{ url_for('static', filename='0_default.png')}}" alt="{{user_object.picture_name}}" style="width: 15%" />
+    {%endif%}
+  </div>
+  <div class="wrapper">
+    <div class="content">
+      <div class="profile-data">
+        <p>Your name: </p>
+        <b>{{ user_object.firstname +" "+ user_object.lastname}}</b>
+        <p>E-mail: </p>
+        <b>{{ user_object.email}}</b>
+        <p>Friends: </p>
+        <b>Null</b>
+        <p>Bio: </p>
+        <b>191cm, lubie programowac w pythonie</b>
+  
+      </div>
     </div>
-</div>
-{% endblock%}
+    
+  </div>
+
+
+</body>
+
+</html>

@@ -1,36 +1,45 @@
-{% from "form_helper.html" import displayField %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% extends "base.html" %}
+<head>
+  {% from "form_helper.html" import displayField %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Turtle Chat App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
 
+<body>
+  <div class="wrapper">
+    <section class="form login">
+      <header>Turtle Chat App</header>
+      <form action="{{ url_for('login')}}" , method="POST">
+        <ul>
+          {% for error in form.errors %} {% if error:%}
+          <div class="error-txt">{{ error }}</div>
 
-{% block title%} Login {% endblock%}
+          {%endif%}{% endfor %}
+        </ul>
 
-{%block bar%}
-<nav class="nav nav-pills justify-content-center">
-    <a class="flex-sm-fill text-sm-center nav-link" href="/">Register</a>
-    <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="/login">Login</a>
-</nav>
-{%endblock%}
-{% block content%}
+        <div class="field input">
+          <label>E-mail Address</label>
+          {{ form.email(class_='input') }}
+        </div>
+        <div class="field input">
+          <label>Password</label>
+          {{ form.password(class_='input')}}
+          <i class="fas fa-eye"></i>
+        </div>
+        <div class="field button">
+          {{ form.submit_button(class_='input', type='submit')}}
+        </div>
+        {{form.csrf_token}}
+      </form>
+      <div class="link">Not yet signed up? <a href="/">Signup now!</a></div>
+    </section>
+  </div>
+</body>
 
-<div class="row">
-    <div class="columns">
-        <h2> Login now! </h2>
-        <p>Enter your username/password to start FastestChat</p>
-
-        <form action="{{ url_for('login')}}" , method="POST">
-
-            {{ displayField(form.username, "firstname", autocomplete="off", autofocus=true) }}
-            {{ displayField(form.password, "Password", ) }}
-
-            <div class="button-submit">
-                {{ form.submit_button}}
-            </div>
-            {{form.csrf_token}}
-        </form>
-
-        <p>If you are not already register, <a href="/">click here!</a> </p>
-    </div>
-
-</div>
-{%endblock%}
+</html>

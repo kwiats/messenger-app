@@ -17,11 +17,11 @@ conn = psycopg2.connect(
 #connection.autocommit()
 cursor = conn.cursor()
 
-query = "SELECT username FROM users;"
+query = "SELECT firstname FROM users;"
 
 
 cursor.execute(query)
-lst_username = [username[0] for username in cursor.fetchall()]
+lst_username = [name[0] for name in cursor.fetchall()]
     
 conn.commit()
 conn.close()

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Turtle Chat App</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <section class="users">
+        <header>
+          <div class="content">
+            <img src=`images/${user_object.picture_name}` alt="" />
+            <div class="details">
+              <a href="/profile"><span>{{ user_object.firstname +" "+ user_object.lastname}}</span></a>
+              <p>Active Now</p>
+            </div>
+          </div>
+          <a href="/logout" class="logout">Logout</a>
+        </header>
+        <div class="search">
+          <span class="text">Select an user to start chat</span>
+          <input type="text" placeholder="Enter name to search.." />
+          <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="users-list">
+          <a href="#">
+            <div class="content">
+              <img src="img_n.jpg" alt="" />
+              <div class="details">
+                <span>Natalia Strzelczyk</span>
+                <p>This is test message</p>
+              </div>
+            </div>
+            <div class="status-dot"><i class="fas fa-circle"></i></div>
+          </a>
+          <a href="#">
+            <div class="content">
+              <img src="img_f.jpg" alt="" />
+              <div class="details">
+                <span>Fiona Kwiatkowska</span>
+                <p>This is test message</p>
+              </div>
+            </div>
+            <div class="status-dot"><i class="fas fa-circle"></i></div>
+          </a>
+          <a href="#">
+            <div class="content">
+              <img src="img_m.jpg" alt="" />
+              <div class="details">
+                <span>Michał Kwiatkowska</span>
+                <p>This is test message</p>
+              </div>
+            </div>
+            <div class="status-dot"><i class="fas fa-circle"></i></div>
+          </a>
+          <a href="#">
+            <div class="content">
+              <img src="img_default.png" alt="" />
+              <div class="details">
+                <span>Ewa Kwiatkowska</span>
+                <p>This is test message</p>
+              </div>
+            </div>
+            <div class="status-dot"><i class="fas fa-circle"></i></div>
+          </a>
+          <a href="#">
+            <div class="content">
+              <img src="img_default.png" alt="" />
+              <div class="details">
+                <span>Andrzej Kwiatkowska</span>
+                <p>This is test message</p>
+              </div>
+            </div>
+            <div class="status-dot"><i class="fas fa-circle"></i></div>
+          </a>
+          <a href="#">
+            <div class="content">
+              <img src="img_default.png" alt="" />
+              <div class="details">
+                <span>Filip Kwiatkowska</span>
+                <p>This is test message</p>
+              </div>
+            </div>
+            <div class="status-dot"><i class="fas fa-circle"></i></div>
+          </a>
+          <a href="#">
+            <div class="content">
+              <img src="img_default.png" alt="" />
+              <div class="details">
+                <span>Patrycja Kwiatkowska</span>
+                <p>This is test message</p>
+              </div>
+            </div>
+            <div class="status-dot"><i class="fas fa-circle"></i></div>
+          </a>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 import os
 from time import localtime, strftime
 from random import randint
@@ -27,13 +28,14 @@ from werkzeug.utils import secure_filename
 import uuid as uuid
 
 from wtform_fields import *
-from model.models import User
+from model.models import User, db
 from model.control_data import lst_username
 
 
 load_dotenv()
 database_connection = os.environ.get("DATABASE_URL")
 secret_key = os.environ.get("SECRET_KEY")
+UPLOAD_FOLDER = "static/images/"
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -44,7 +46,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = database_connection
 app.config["MAX_CONTENT_LENGTH"] = 4 * 1024 * 1024  # 4MB max-limit.
 app.config["UPLOAD_EXTENSIONS"] = [".jpg", ".png", ".gif"]
-app.config["UPLOAD_PATH"] = "uploads"
+app.config["UPLOAD_PATH"] = UPLOAD_FOLDER
+
 db = SQLAlchemy(app)
 
 # socketio configure
@@ -69,25 +72,50 @@ def register():
         return redirect(url_for("login"))
 
     reg_form = RegistrationForm()
+    print(f"\n\n\n test: {reg_form.validate_on_submit()} \n\n\n")
     # updated database if validation scucces
     if reg_form.validate_on_submit():
-        username = reg_form.username.data
+        print("\n\n\n test \n\n\n")
+        firstname = reg_form.firstname.data
+        lastname = reg_form.lastname.data
         password = reg_form.password.data
         email = reg_form.email.data
-        profile_picture = reg_form.profile_picture.data
-        if profile_picture:
-            picture_prof = secure_filename(profile_picture.filename)
-
-            pic_name = str(uuid.uuid1()) + "_" + username + "_" + picture_prof[-4:]
-            print(f"\n\n\n\n{pic_name}\n\n\n\n")
-
-            profile_picture.save(os.path.join(app.root_path, "images", pic_name))
-
+        picture_name = reg_form.picture_name.data
         # hash password
         hashed_pswd = pbkdf2_sha256.hash(password)
+        if picture_name:
+            picture_prof = secure_filename(picture_name.filename)
+
+            pic_name = (
+                str(uuid.uuid1())
+                + "_"
+                + (firstname + lastname)
+                + "_"
+                + picture_prof[-4:]
+            )
+            print(f"\n\n\n\n{pic_name}\n\n\n\n")
+
+            picture_name.save(os.path.join(app.root_path, UPLOAD_FOLDER, pic_name))
+
+            user = User(
+                firstname=firstname,
+                lastname=lastname,
+                password=hashed_pswd,
+                email=email,
+                picture_name=pic_name,
+            )
+
+        else:
+            user = User(
+                firstname=firstname,
+                lastname=lastname,
+                password=hashed_pswd,
+                email=email,
+                picture_name="default",
+            )
 
         # add to db
-        user = User(username=username, password=hashed_pswd, email=email)
+
         db.session.add(user)
         db.session.commit()
 
@@ -103,7 +131,7 @@ def login():
     login_form = LoginForm()
 
     if login_form.validate_on_submit():
-        user_object = User.query.filter_by(username=login_form.username.data).first()
+        user_object = User.query.filter_by(email=login_form.email.data).first()
         login_user(user_object)
         return redirect(url_for("chat"))
 
@@ -112,9 +140,9 @@ def login():
 
 @app.route("/chat", methods=["GET", "POST"])
 def chat():
-    # if not current_user.is_authenticated:
-    #     flash("Please login.", "danger")
-    #     return redirect(url_for("login"))
+    if not current_user.is_authenticated:
+        flash("Please login.", "danger")
+        return redirect(url_for("login"))
 
     return render_template(
         "chat.html",
@@ -143,23 +171,24 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/find_friend", methods=["GET"])
-def find_friend():
-    if not current_user.is_authenticated:
-        flash("Please login.", "danger")
-        return redirect(url_for("login"))
+##### POPRAWKA!!!!
+# @app.route("/find_friend", methods=["GET"])
+# def find_friend():
+#     if not current_user.is_authenticated:
+#         flash("Please login.", "danger")
+#         return redirect(url_for("login"))
 
-    find_friend = request.args.get("friend_name")
-    user = User.query.filter_by(username=find_friend).first()
-    if user == current_user.username:
-        raise ValueError
-    else:
-        context = {"friend": user}
+#     find_friend = request.args.get("friend_name")
+#     user = User.query.filter_by(username=find_friend).first()
+#     if user == current_user.username:
+#         raise ValueError
+#     else:
+#         context = {"friend": user}
 
-    return render_template(
-        "find_friend.html",
-        context=context,
-    )
+#     return render_template(
+#         "find_friend.html",
+#         context=context,
+#     )
 
 
 @app.errorhandler(404)
@@ -172,24 +201,21 @@ def internal_server_error(e):
     return render_template("500.html"), 500
 
 
-@socketio.on("message")
-def message(data):
+@socketio.on("incoming-msg")
+def on_message(data):
     print(data)
-    send(
-        {
-            "msg": data["msg"],
-            "username": data["username"],
-            "time_stamp": strftime("%b-%d %I:%M%p", localtime()),
-        },
-        room=data["room"],
-    )
+    msg = data["msg"]
+    firstname = data["firstname"]
+    room = data["room"]
+    time_stamp = strftime("%b-%d %I:%M%p", localtime())
+    send({"firstname": firstname, "msg": msg, "time_stamp": time_stamp}, room=room)
 
 
 @socketio.on("join")
 def join(data):
     join_room(data["room"])
     send(
-        {"msg": data["username"] + " has joined the " + data["room"] + " room."},
+        {"msg": data["room"]},
         room=data["room"],
     )
 
@@ -198,7 +224,7 @@ def join(data):
 def leave(data):
     leave_room(data["room"])
     send(
-        {"msg": data["username"] + " has left the " + data["room"] + " room."},
+        {"msg": data["firstname"] + " has left the " + data["room"] + " room."},
         room=data["room"],
     )
 
