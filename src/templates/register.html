@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-  <title>Register - Turtle Chat</title>
+  <title>Register - TurtleMessanger</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
@@ -30,7 +30,7 @@
 
   <div class="wrapper">
     <section class="form signup">
-      <header>Turtle Chat App</header>
+      <header>TurtleMessanger App</header>
       <form action="{{ url_for('register')}}" method="POST" enctype="multipart/form-data">
         <ul>
           {% for error in form.errors %} {% if error:%}

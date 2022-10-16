@@ -111,7 +111,7 @@ def register():
                 lastname=lastname,
                 password=hashed_pswd,
                 email=email,
-                picture_name="default",
+                picture_name="0_default.png",
             )
 
         # add to db
@@ -158,9 +158,6 @@ def profile():
     if not current_user.is_authenticated:
         flash("Please login.", "danger")
         return redirect(url_for("login"))
-
-    # if current_user.profile_picture:
-    #     pass
 
     return render_template("profile.html", user_object=current_user)
 

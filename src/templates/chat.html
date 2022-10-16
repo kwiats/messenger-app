@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-  <title>Chat - Turtle Chat</title>
+  <title>Chat - TurtleMessanger</title>
 </head>
 
 <body>
@@ -64,6 +64,19 @@
             <div class="details">
 
               <span class="select-room">{{user[1] + " " + user[2]}}</span>
+              <p>Wiadomość tekstowa </p>
+
+            </div>
+          </div>
+          <div class="status-dot"><i class="fas fa-circle"></i></div>
+        </a>
+        {% else %}
+        <a href="#">
+          <div class="content">
+            <img src="{{ url_for('static', filename='images/' + user[5])}}" alt="" />
+            <div class="details">
+
+              <span class="select-room">{{user[1] + " " + user[2] + "(me)"}}</span>
               <p>Wiadomość tekstowa </p>
 
             </div>

@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Turtle Chat App</title>
+  <title>TurtleMessanger App</title>
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
@@ -32,7 +32,7 @@
   
   <div class="wrapper">
     <section class="form login">
-      <header>Turtle Chat App</header>
+      <header>TurtleMessanger App</header>
       <form action="{{ url_for('login')}}" , method="POST">
         <ul>
           {% for error in form.errors %} {% if error:%}
